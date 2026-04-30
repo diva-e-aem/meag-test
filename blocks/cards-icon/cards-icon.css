@@ -18,6 +18,11 @@
   width: auto;
 }
 
+.cards-icon-image picture {
+  display: block;
+  height: 100%;
+}
+
 .cards-icon-image img {
   height: 100%;
   width: auto;

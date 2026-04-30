@@ -19,12 +19,14 @@ export default function decorate(block) {
     }
 
     const img = firstCol.querySelector('img');
+    const source = firstCol.querySelector('picture source[media]');
+    const imgSrc = source?.srcset || img?.src || '';
     const paragraphs = [...secondCol.querySelectorAll('p')];
     const quoteText = paragraphs[0]?.textContent || '';
     const citeName = paragraphs[1]?.textContent || '';
 
     quotes.push({
-      img: img?.src || '', alt: img?.alt || '', quoteText, citeName,
+      img: imgSrc, alt: img?.alt || '', quoteText, citeName,
     });
   });
 

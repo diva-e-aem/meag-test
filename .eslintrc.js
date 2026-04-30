@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   extends: 'airbnb-base',
+  ignorePatterns: ['*.bundle.js'],
   env: {
     browser: true,
   },

@@ -23,7 +23,8 @@ export default function decorate(block) {
   const firstRow = rows[0];
   const linkEl = firstRow.querySelector('a');
   if (linkEl) {
-    videoUrl = linkEl.href;
+    const text = linkEl.textContent.trim();
+    videoUrl = text.startsWith('http') ? text : linkEl.href;
   } else {
     videoUrl = firstRow.textContent.trim();
   }

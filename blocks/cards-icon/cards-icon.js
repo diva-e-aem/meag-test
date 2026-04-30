@@ -19,15 +19,20 @@ export default function decorate(block) {
     const card = document.createElement('div');
     card.className = 'cards-icon-card';
 
+    const picture = imageCol.querySelector('picture');
     const img = imageCol.querySelector('img');
     if (img) {
       const imgWrap = document.createElement('div');
       imgWrap.className = 'cards-icon-image';
-      const newImg = document.createElement('img');
-      newImg.src = img.src;
-      newImg.alt = img.alt || '';
-      newImg.loading = 'lazy';
-      imgWrap.append(newImg);
+      if (picture) {
+        imgWrap.append(picture);
+      } else {
+        const newImg = document.createElement('img');
+        newImg.src = img.src;
+        newImg.alt = img.alt || '';
+        newImg.loading = 'lazy';
+        imgWrap.append(newImg);
+      }
       card.append(imgWrap);
     }
 

@@ -23,13 +23,14 @@ export default function decorate(block) {
     teaserSection.className = 'columns-nav-teaser';
 
     const img = rightCol.querySelector('img');
+    const source = rightCol.querySelector('picture source[media]');
     const link = rightCol.querySelector('a');
 
     if (img) {
       const imgWrap = document.createElement('div');
       imgWrap.className = 'columns-nav-teaser-image';
       const newImg = document.createElement('img');
-      newImg.src = img.src;
+      newImg.src = source?.srcset || img.src;
       newImg.alt = img.alt || '';
       newImg.loading = 'lazy';
       imgWrap.append(newImg);

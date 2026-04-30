@@ -18,11 +18,16 @@ export default function decorate(block) {
     const imageCol = cols[0];
     const textCol = cols[1];
 
+    const picture = imageCol?.querySelector('picture');
     const imgEl = imageCol?.querySelector('img');
     if (imgEl) {
+      const sources = picture?.querySelectorAll('source[media]') || [];
+      const highResSrc = sources.length > 0
+        ? sources[0].srcset
+        : imgEl.src;
       const bg = document.createElement('div');
       bg.className = 'hero-carousel-image';
-      bg.style.backgroundImage = `url(${imgEl.src})`;
+      bg.style.backgroundImage = `url(${highResSrc})`;
       slide.append(bg);
     }
 
