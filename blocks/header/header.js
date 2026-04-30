@@ -2,7 +2,7 @@ import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
+const isDesktop = window.matchMedia('(min-width: 1024px)');
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -125,8 +125,9 @@ export default async function decorate(block) {
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
   const classes = ['brand', 'sections', 'tools'];
+  const sections = nav.querySelectorAll(':scope > div.section');
   classes.forEach((c, i) => {
-    const section = nav.children[i];
+    const section = sections[i];
     if (section) section.classList.add(`nav-${c}`);
   });
 
@@ -135,6 +136,24 @@ export default async function decorate(block) {
   if (brandLink) {
     brandLink.className = '';
     brandLink.closest('.button-container').className = '';
+  }
+
+  // Set up responsive logo with picture element
+  const brandImg = navBrand.querySelector('img');
+  if (brandImg) {
+    const picture = document.createElement('picture');
+    const sourceMobile = document.createElement('source');
+    sourceMobile.media = '(max-width: 1023px)';
+    sourceMobile.srcset = '/icons/meag-logo.svg';
+    const sourceDesktop = document.createElement('source');
+    sourceDesktop.media = '(min-width: 1024px)';
+    sourceDesktop.srcset = '/icons/meag-logo-claim.svg';
+    picture.append(sourceMobile, sourceDesktop);
+    brandImg.src = '/icons/meag-logo.svg';
+    brandImg.alt = 'MEAG Logo';
+    picture.append(brandImg);
+    const anchor = brandLink || navBrand.querySelector('a');
+    if (anchor) anchor.replaceChildren(picture);
   }
 
   const navSections = nav.querySelector('.nav-sections');
